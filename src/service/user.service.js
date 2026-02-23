@@ -70,4 +70,18 @@ export const userSIgninService = async(userData) => {
     } catch (err) {
         throw err;
     }
+};
+
+export const getAllUsersService = async() => {
+    try {
+        const users = await User.find().sort({ createdAt: -1 })
+
+        if(!users){
+            throw new Error("No data found")
+        };
+
+        return users;
+    } catch (err) {
+        throw err;
+    }
 }

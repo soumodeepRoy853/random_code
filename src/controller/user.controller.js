@@ -1,4 +1,4 @@
-import { userSIgninService, userSignupService } from "../service/user.service.js";
+import { userSIgninService, userSignupService, getAllUsersService } from "../service/user.service.js";
 
 export const userSignupController = async(req, res) => {
     try {
@@ -8,7 +8,7 @@ export const userSignupController = async(req, res) => {
     } catch (err) {
         res.status(500).json({ success: false, message: err.message });
     }
-}
+};
 
 export const userSIgninController = async(req, res) => {
     try {
@@ -19,3 +19,13 @@ export const userSIgninController = async(req, res) => {
         res.status(400).json({ success: false, message: err.message })
     }
 };
+
+export const getAllUsersController = async(req, res) => {
+    try {
+        const users = await getAllUsersService();
+
+        res.status(200).json({ success: true, data: users });
+    } catch (err) {
+        res.status(400).json({ success: false, message: err.message })
+    }
+}
