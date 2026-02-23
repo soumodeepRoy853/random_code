@@ -38,7 +38,7 @@ export const userSignupService = async(userData) => {
     }
 };
 
-export const userSIgninService = async(userData) => {
+export const userSigninService = async(userData) => {
     try {
        const { email, password } = userData;
 
@@ -48,7 +48,7 @@ export const userSIgninService = async(userData) => {
 
        const user = await User.findOne({ email });
        if(!user){
-        throw new Error("Email is not registred, please Signup first")
+        throw new Error("Email is not registered, please Signup first")
        };
 
        if(!password){
@@ -74,9 +74,9 @@ export const userSIgninService = async(userData) => {
 
 export const getAllUsersService = async() => {
     try {
-        const users = await User.find().sort({ createdAt: -1 })
+        const users = await User.find().select("-password").sort({ createdAt: -1 })
 
-        if(!users){
+        if(!users.length){
             throw new Error("No data found")
         };
 

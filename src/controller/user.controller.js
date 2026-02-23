@@ -1,4 +1,4 @@
-import { userSIgninService, userSignupService, getAllUsersService } from "../service/user.service.js";
+import { userSigninService, userSignupService, getAllUsersService } from "../service/user.service.js";
 
 export const userSignupController = async(req, res) => {
     try {
@@ -10,9 +10,9 @@ export const userSignupController = async(req, res) => {
     }
 };
 
-export const userSIgninController = async(req, res) => {
+export const userSigninController = async(req, res) => {
     try {
-        const user = await userSIgninService(req.body);
+        const user = await userSigninService(req.body);
 
         res.status(200).json({ success: true, data: user });
     } catch (err) {
