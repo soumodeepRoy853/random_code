@@ -1,5 +1,5 @@
-import User from "../model/user.model.js";
-import generateToken from "../utils/generateToken.js";
+import User from "../../model/user.model.js";
+import generateToken from "../../utils/generateToken.js";
 
 export const userSignupService = async(userData) => {
     try {
@@ -38,7 +38,7 @@ export const userSignupService = async(userData) => {
     }
 };
 
-export const userSIgninService = async(userData) => {
+export const userSigninService = async(userData) => {
     try {
        const { email, password } = userData;
 
@@ -46,9 +46,9 @@ export const userSIgninService = async(userData) => {
         throw new Error("Please enter ypur registered email")
        };
 
-       const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).select("+password");
        if(!user){
-        throw new Error("Email is not registred, please Signup first")
+        throw new Error("Email is not registered, please Signup first")
        };
 
        if(!password){
@@ -63,11 +63,15 @@ export const userSIgninService = async(userData) => {
     const token = generateToken(user._id);
 
        return {
-        user,
+        user: {
+            id: user._id,
+            userName: user.userName,
+            email: user.email
+        },
         token
        }
 
     } catch (err) {
         throw err;
     }
-}
+};

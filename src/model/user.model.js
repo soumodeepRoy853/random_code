@@ -19,8 +19,47 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        minLength: 6
+        minLength: 6,
+        select: false
+    },
+
+    dailyTarget: {
+        type: Number,
+        default: 1,
+        min: 1
+    },
+
+    currentStreak: {
+        type: Number,
+        default: 0
+    },
+
+    longestStreak: {
+        type: Number,
+        default: 0
+    },
+
+    lastPracticeAt: {
+        type: Date,
+        default: null
+    },
+
+    totalSolved: {
+        type: Number,
+        default: 0
+    },
+
+    role: {
+        type: String,
+        enum: ["USER", "ADMIN"],
+        default: "USER"
+    },
+
+    isActive: {
+        type: Boolean,
+        default: true
     }
+
 },{timestamps: true});
 
 userSchema.pre("save", async function() {
