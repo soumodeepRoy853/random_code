@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { required } from "zod/mini";
 
 const practiceSchema = new mongoose.Schema({
     user: {
@@ -24,17 +23,18 @@ const practiceSchema = new mongoose.Schema({
         enum: ["EASY", "MEDIUM", "HARD"],
         required: true
     },
-    solve: {
-        solved: Boolean,
-        default: false
+    solved: {
+        type: Boolean,
+        default: true
     },
     timeTaken: {
         type: Number
     },
     date: {
         type: Date,
-        default: Date.now()
+        default: Date.now
     }
 },{timestamps: true} )
 
-export const Practice = mongoose.model("Practice", practiceSchema);
+const Practice = mongoose.model("Practice", practiceSchema);
+export default Practice;
